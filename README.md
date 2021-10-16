@@ -61,3 +61,5 @@ Below are the wireframes used to design the app layout.
 #### Recipe
 ![wireframe for recipe display](static/images/wireframes/recipe_wireframe.PNG)
 
+### Wireframe changes 
+ - Registration moved from home page to register page.
