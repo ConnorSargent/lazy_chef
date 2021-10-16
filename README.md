@@ -46,20 +46,18 @@ User stories regarding the application in general:
 Below are the wireframes used to design the app layout.
 
 #### Home
-![wireframe for home page]()
+- The sign up/registration will be hidden when a user is logged in.
+![wireframe for home page](static/images/wireframes/home_wireframe.PNG)
 
 #### Log in
-![wireframe for login]()
-
-#### Register
-![wireframe for register]()
+![wireframe for login](static/images/wireframes/login_wireframe.PNG)
 
 #### Profile
-![wireframe for profile page]()
+![wireframe for profile page](static/images/wireframes/profile_wireframe.PNG)
 
 #### Add Recipe
-![wireframe for add recipe page]()
+![wireframe for add recipe page](static\images\wireframes\add_recipe_wireframe.PNG)
 
 #### Recipe
-![wireframe for recipe display]()
+![wireframe for recipe display](static/images/wireframes/recipe_wireframe.PNG)
 
