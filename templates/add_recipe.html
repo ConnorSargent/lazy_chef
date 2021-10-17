@@ -1,0 +1,115 @@
+{% extends "base.html"%}
+
+{% block content%}
+
+<h2>Add Recipe</h2>
+
+<section>
+    <div class="card-panel">
+        <form class="col s12" method="POST" action="{{ url_for('add_recipe') }}">
+
+            <!-- Recipe Name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix"></i>
+                    <input id="recipe_name" type="text" name="recipe_name" minlength="5" maxlength="50" class="validate"
+                        required>
+                    <label for="recipe_name">Recipe Name</label>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- Select Diet -->
+                <div class="input-field col s12 m6">
+                    <i class="fas fa-folder-open prefix"></i>
+                    <select id="diets" name="diets" class="validate" required>
+                        <option value="" disabled selected>Select Diet</option>
+                        {% for diet in diets %}
+                        <option value="{{diets.diet}}">{{diets.diet}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="diets">Select Diet</label>
+                </div>
+
+                <!-- Select Allergens -->
+                <div class="input-field col s12 m6">
+                    <i class="fas fa-folder-open prefix"></i>
+                    <select id="allergens" name="allergens" class="validate" multiple required>
+                        <option value="" disabled selected>Select Allergens</option>
+                        {% for allergen in allergens %}
+                        <option value="{{allergen.allergen}}">{{allergen.allergen}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="allergens">Select Allergens</label>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!-- Serves -->
+                <div class="input-field col l4">
+                    <i class="fas fa-users prefix"></i>
+                    <input id="serves" type="text" name="serves" minlength="5" maxlength="10" class="validate">
+                    <label for="serves">Serves</label>
+                </div>
+
+                <!-- Prep Time -->
+                <div class="input-field col l4">
+                    <i class="fas fa-clock prefix"></i>
+                    <input id="prep_time" type="text" name="prep_time" minlength="5" maxlength="10" class="validate">
+                    <label for="prep_time">Prep Time</label>
+                </div>
+
+                <!-- Cook Time -->
+                <div class="input-field col l4">
+                    <i class="fas fa-clock prefix"></i>
+                    <input id="cook_time" type="text" name="cook_time" minlength="5" maxlength="50" class="validate">
+                    <label for="cook_time">Cook Time</label>
+                </div>
+            </div>
+
+            <!-- Recipe Description-->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix"></i>
+                    <textarea id="description" name="description" minlength="5" maxlength="200"
+                        class="materialize-textarea validate" required></textarea>
+                    <label for="description">Recipe Description</label>
+                </div>
+            </div>
+
+            <!-- Add Ingredient -->
+            <div class="row">
+                <div class="input-field chips chips-placeholder col s12">
+                    Ingredients (Type and press enter to add)
+                    <input class="" id="ingredients" name="ingredients" required>
+                </div>
+            </div>
+
+            <!-- Steps -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-list prefix"></i>
+                    <textarea id="steps" class="materialize-textarea validate" name="steps" minlength="5"
+                        maxlength="2000" required></textarea>
+                    <label for="steps">Steps</label>
+                </div>
+            </div>
+
+            <!-- Img Url -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-image prefix"></i>
+                    <input id="img_url" type="text" name="img_url" minlength="5" maxlength="400" class="validate"
+                    value="https://images.pexels.com/photos/6419720/pexels-photo-6419720.jpeg">
+                    <label  class="active" for="img_url">Image URL (Use current URL if you do not have one)</label>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+{% endblock %}
