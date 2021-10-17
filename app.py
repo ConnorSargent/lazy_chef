@@ -48,6 +48,7 @@ def register():
             }
         mongo.db.users.insert_one(register)
 
+         # put the new user into 'session' cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")
         return render_template("register.html", username=session["user"])
@@ -80,11 +81,20 @@ def login():
     return render_template("login.html")
 
 
+@app.route("/my_recipes/<username>", methods=['POST', 'GET'])
+def my_recipes(username):
+
+    if session.get('user'):
+        username = session.get('user')
+
+        return render_template("my_recipes.html", username=session["user"])
+
+
 @app.route("/logout")
 def logout():
     flash("You have been logged out")
     session.pop("user")
-    return redirect(url_for("login")) 
+    return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
