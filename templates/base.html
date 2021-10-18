@@ -29,7 +29,6 @@
                     <li><a href="{{ url_for('get_recipes') }}">Home</a></li>
                     <li><a href="{{ url_for('my_recipes', username=session['user']) }}">My Recipes</a></li>
                     <li><a href="{{ url_for('add_recipe') }}">New Recipe</a></li>
-                    <li><a href="#">Edit Recipes</a></li>
                     <li><a href="#">Admin</a></li>
                     <li><a href="{{ url_for('register') }}">Register</a></li>
                     <li><a href="{{ url_for('logout') }}">Log Out</a></li>
@@ -46,7 +45,6 @@
             <li><a href="{{ url_for('get_recipes') }}">Home</a></li>
             <li><a href="{{ url_for('my_recipes', username=session['user']) }}">My Recipes</a></li>
             <li><a href="{{ url_for('add_recipe') }}">New Recipe</a></li>
-            <li><a href="#">Edit Recipes</a></li>
             <li><a href="#">Admin</a></li>
             <li><a href="{{ url_for('register') }}">Register</a></li>
             <li><a href="{{ url_for('logout') }}">Log Out</a></li>
