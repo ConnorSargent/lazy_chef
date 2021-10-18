@@ -12,38 +12,9 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix"></i>
-                    <input id="recipe_name" type="text" name="recipe_name" minlength="5" maxlength="50" class="validate"
-                        required>
-                    <label for="recipe_name">Recipe Name</label>
+                    <input id="name" type="text" name="name" minlength="5" maxlength="50" class="validate" required>
+                    <label for="name">Recipe Name</label>
                 </div>
-            </div>
-
-            <div class="row">
-
-                <!-- Select Diet -->
-                <div class="input-field col s12 m6">
-                    <i class="fas fa-folder-open prefix"></i>
-                    <select id="diets" name="diets" class="validate" required>
-                        <option value="" disabled selected>Select Diet</option>
-                        {% for diet in diets %}
-                        <option value="{{diets.diet}}">{{diets.diet}}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="diets">Select Diet</label>
-                </div>
-
-                <!-- Select Allergens -->
-                <div class="input-field col s12 m6">
-                    <i class="fas fa-folder-open prefix"></i>
-                    <select id="allergens" name="allergens" class="validate" multiple required>
-                        <option value="" disabled selected>Select Allergens</option>
-                        {% for allergen in allergens %}
-                        <option value="{{allergen.allergen}}">{{allergen.allergen}}</option>
-                        {% endfor %}
-                    </select>
-                    <label for="allergens">Select Allergens</label>
-                </div>
-
             </div>
 
             <div class="row">
@@ -51,7 +22,7 @@
                 <!-- Serves -->
                 <div class="input-field col l4">
                     <i class="fas fa-users prefix"></i>
-                    <input id="serves" type="text" name="serves" minlength="5" maxlength="10" class="validate">
+                    <input id="serves" type="text" name="serves" class="validate">
                     <label for="serves">Serves</label>
                 </div>
 
@@ -74,17 +45,19 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix"></i>
-                    <textarea id="description" name="description" minlength="5" maxlength="200"
-                        class="materialize-textarea validate" required></textarea>
+                    <textarea id="description" class="materialize-textarea validate" name="description" minlength="5"
+                        maxlength="150" required></textarea>
                     <label for="description">Recipe Description</label>
                 </div>
             </div>
 
             <!-- Add Ingredient -->
             <div class="row">
-                <div class="input-field chips chips-placeholder col s12">
-                    Ingredients (Type and press enter to add)
-                    <input class="" id="ingredients" name="ingredients" required>
+                <div class="input-field col s12">
+                    <i class="fas fa-receipt prefix"></i>
+                    <textarea id="ingredients" class="materialize-textarea validate" name="ingredients" minlength="5"
+                        maxlength="150" required></textarea>
+                    <label for="ingredients">Ingredients</label>
                 </div>
             </div>
 
@@ -103,9 +76,14 @@
                 <div class="input-field col s12">
                     <i class="fas fa-image prefix"></i>
                     <input id="img_url" type="text" name="img_url" minlength="5" maxlength="400" class="validate"
-                    value="https://images.pexels.com/photos/6419720/pexels-photo-6419720.jpeg">
-                    <label  class="active" for="img_url">Image URL (Use current URL if you do not have one)</label>
+                        value="https://images.pexels.com/photos/6419720/pexels-photo-6419720.jpeg">
+                    <label class="active" for="img_url">Image URL (Use current URL if you do not have
+                        one)</label>
                 </div>
+            </div>
+
+            <div class="row">
+                <button type="submit" class="btn-large">Post Recipe</button>
             </div>
 
         </form>

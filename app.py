@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -97,9 +98,36 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add_recipe")
+@app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    return render_template("add_recipe.html")
+
+    if not session.get("user"):
+        return redirect(url_for("login"))
+
+    if request.method == "POST":
+        recipe = {
+             "name": request.form.get("name"),
+             "diets": request.form.getlist("diets"),
+             "allergens": request.form.getlist("allergens"),
+             "serves": request.form.get("serves"),
+             "prep_time": request.form.get("prep_time"),
+             "cook_time": request.form.get("cook_time"),
+             "description": request.form.get("description"),
+             "ingredients": request.form.get("ingredients"),
+             "steps": request.form.get("steps"),
+             "img_url": request.form.get("img_url"),
+             "created_by": session["user"],
+             "date_created": datetime.now()
+            }
+
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe successfully posted!")
+        return redirect(url_for("my_recipes", username=session['user']))
+
+    allergens = mongo.db.allergens.find().sort("allergens", 1)
+    diets = mongo.db.diets.find().sort("diets", 1)
+    return render_template(
+        "add_recipe.html", allergens=allergens, diets=diets)
 
 
 if __name__ == "__main__":
