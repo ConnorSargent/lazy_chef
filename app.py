@@ -124,8 +124,8 @@ def add_recipe():
         flash("Recipe successfully posted!")
         return redirect(url_for("my_recipes", username=session['user']))
 
-    allergens = mongo.db.allergens.find().sort("allergens", 1)
-    diets = mongo.db.diets.find().sort("diets", 1)
+    diets = mongo.db.diets.find().sort("diet_name", 1)
+    allergens = mongo.db.allergens.find().sort("allergen_name", 1)
     return render_template(
         "add_recipe.html", allergens=allergens, diets=diets)
 
