@@ -87,8 +87,10 @@ def my_recipes(username):
 
     if session.get("user"):
         username = session.get("user")
+        my_recipes = list(mongo.db.recipes.find({"created_by": username}))
 
-        return render_template("my_recipes.html", username=session["user"])
+        return render_template("my_recipes.html", username=session["user"],
+                               my_recipes=my_recipes)
 
 
 @app.route("/logout")
