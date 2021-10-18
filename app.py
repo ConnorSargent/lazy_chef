@@ -132,11 +132,30 @@ def add_recipe():
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
+    if request.method == "POST":
+        submit = {
+            "name": request.form.get("name"),
+             "diets": request.form.getlist("diets"),
+             "allergens": request.form.getlist("allergens"),
+             "serves": request.form.get("serves"),
+             "prep_time": request.form.get("prep_time"),
+             "cook_time": request.form.get("cook_time"),
+             "description": request.form.get("description"),
+             "ingredients": request.form.get("ingredients"),
+             "steps": request.form.get("steps"),
+             "img_url": request.form.get("img_url"),
+             "created_by": session["user"],
+             "date_created": datetime.now()
+        }
+        mongo.db.recipes.update({"_id": ObjectId(recipe_id)}, submit)
+        flash("Recipe updated!")
+        return redirect(url_for("my_recipes", username=session['user']))
+
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     diets = mongo.db.diets.find().sort("diet_name", 1)
     allergens = mongo.db.allergens.find().sort("allergen_name", 1)
     return render_template("edit_recipe.html"
-    ,recipe=recipe, allergens=allergens, diets=diets)
+        ,recipe=recipe, allergens=allergens, diets=diets)
 
 
 if __name__ == "__main__":
