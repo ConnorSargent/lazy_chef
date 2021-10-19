@@ -48,7 +48,9 @@
         <div class="col s12 m6">
             <p>Allergens:</p>
             <p>
-                {{ recipe.allergens }}
+                {% for allergen in recipe.allergens %}
+                <li>{{ allergen }}</li>
+                {% endfor %}
             </p>
         </div>
     </div>

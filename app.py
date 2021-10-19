@@ -130,14 +130,14 @@ def add_recipe():
     if request.method == 'POST':
         recipe = {
             'name': request.form.get('name'),
-            'diets': request.form.get('diets'),
-            'allergens': request.form.get('allergens'),
+            'diets': request.form.get('diet_name'),
+            'allergens': request.form.getlist('allergen_name'),
             'serves': request.form.get('serves'),
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
             'description': request.form.get('description'),
-            'ingredients': request.form.get('ingredients'),
-            'steps': request.form.get('steps'),
+            'ingredients': request.form.getlist('ingredients').split(">"),
+            'steps': request.form.getlist('steps').split(">"),
             'img_url': request.form.get('img_url'),
             'created_by': session['user'],
             'date_created': datetime.now(),
@@ -158,8 +158,8 @@ def edit_recipe(recipe_id):
     if request.method == 'POST':
         submit = {
             'name': request.form.get('name'),
-            'diets': request.form.get('diets'),
-            'allergens': request.form.get('allergens'),
+            'diets': request.form.get('diet_name'),
+            'allergens': request.form.getlist('allergen_name'),
             'serves': request.form.get('serves'),
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
@@ -198,6 +198,19 @@ def view_recipe(recipe_id):
 def get_diets():
     diets = list(mongo.db.diets.find().sort("diet_name", 1))
     return render_template("diets.html", diets=diets)
+
+
+@app.route("/add_diet", methods=["GET", "POST"])
+def add_diet():
+    if request.method == "POST":
+        diet = {
+            "diet_name": request.form.get("diet_name")
+        }
+        mongo.db.diets.insert_one(diet)
+        flash("New diet Added")
+        return redirect(url_for("get_diets"))
+
+    return render_template("add_diet.html")
 
 
 if __name__ == '__main__':
