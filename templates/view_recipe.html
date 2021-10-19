@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3 class="center-align">{{ recipe.name }}</h3>
+
+<div class="card-panel">
+
+    <div class="row">
+        <div class="col s12 m6">
+            <p>{{ recipe.diets }}</p>
+        </div>
+        <div class="col s12 m6">
+            </p>Serves: {{ recipe.serves }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <p>Preparation Time: {{ recipe.prep_time }} Minutes</p>
+        </div>
+        <div class="col s12 m6">
+            <p>Cooking Time: {{ recipe.cook_time }} Minutes</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <p>{{ recipe.description }}</p>
+        </div>
+        <div class="col s12 m6">
+            <img class="responsive-img" src="{{ recipe.img_url }}" alt="Recipe Image">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <p>Ingredients:<br>
+                {{ recipe.ingredients }}</p>
+        </div>
+        <div class="col s12 m6">
+            <p>Allergens:<br>
+                {{ recipe.allergens }}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6">
+            <p>Steps:<br>
+                {{ recipe.steps }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s12 m6">
+        <p>Created by:<br>
+            {{ recipe.created_by }}</p>
+    </div>
+    <div class="col s12 m6">
+        <p>Date created:<br>
+            {{ recipe.date_created }}</p>
+    </div>
+</div>
+{% endblock %}

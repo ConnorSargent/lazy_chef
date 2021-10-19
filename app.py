@@ -187,6 +187,13 @@ def delete_recipe(recipe_id):
     flash('Recipe Successfully Deleted')
     return redirect(url_for('my_recipes', username=session['user']))
 
+
+@app.route("/view_recipe/<recipe_id>", methods=['POST', 'GET'])
+def view_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
+    return render_template("view_recipe.html", recipe=recipe)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT'
             )), debug=False)
