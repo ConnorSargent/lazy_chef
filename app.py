@@ -136,8 +136,8 @@ def add_recipe():
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
             'description': request.form.get('description'),
-            'ingredients': request.form.getlist('ingredients').split(">"),
-            'steps': request.form.getlist('steps').split(">"),
+            'ingredients': request.form.get('ingredients').split(">"),
+            'steps': request.form.get('steps').split(">"),
             'img_url': request.form.get('img_url'),
             'created_by': session['user'],
             'date_created': datetime.now(),
@@ -183,9 +183,15 @@ def edit_recipe(recipe_id):
 
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
-    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
-    flash('Recipe Successfully Deleted')
-    return redirect(url_for('my_recipes', username=session['user']))
+    recipe_owner = ("recipe.created_by")
+    if (session["user"].lower() != recipe_owner.lower()
+        or session["user"] != "admin"):
+        return redirect(url_for('my_recipes', username=session['user']))
+    
+    else:
+        mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+        flash('Recipe Successfully Deleted')
+        return redirect(url_for('my_recipes', username=session['user']))
 
 
 @app.route("/view_recipe/<recipe_id>", methods=['POST', 'GET'])
