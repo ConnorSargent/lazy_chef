@@ -194,6 +194,12 @@ def view_recipe(recipe_id):
     return render_template("view_recipe.html", recipe=recipe)
 
 
+@app.route("/get_diets")
+def get_diets():
+    diets = list(mongo.db.diets.find().sort("diet_name", 1))
+    return render_template("diets.html", diets=diets)
+
+
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT'
             )), debug=False)
