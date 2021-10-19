@@ -22,7 +22,7 @@ mongo = PyMongo(app)
 @app.route("/get_recipes")
 def get_recipes():
     recipes = list(mongo.db.recipes.find())
-    return render_template("recipes.html", recipes=recipes)
+    return render_template("all_recipes.html", recipes=recipes)
 
 
 @app.route("/register.html", methods=["POST", "GET"])
@@ -52,34 +52,47 @@ def register():
          # put the new user into "session" cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")
-        return render_template("register.html", username=session["user"])
+        return redirect("my_recipes", username=session["user"])
         #Change to my recipes page when created
 
     return render_template("register.html")
 
 
-@app.route("/login.html", methods=["POST", "GET"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+        # check if username exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user:
+            # ensure hashed password matches user input
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
-                flash("Welcome, {}".format(request.form.get("username")))
-                session["user"] = request.form.get("username").lower()
-
-                return render_template(url_for("login",
-                                username=session["user"],
-                                render_template_to="login"))
-                                # change login to my recipes page when created
+                        session["user"] = request.form.get("username").lower()
+                        flash("Welcome, {}".format(
+                            request.form.get("username")))
+                        return redirect(url_for(
+                            "my_recipes", username=session["user"]))
             else:
-                flash("Username and/or Password Incorrect")
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+
         else:
-            flash("Username and/or Password Incorrect")
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
 
     return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookie
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
 
 
 @app.route("/my_recipes/<username>", methods=["POST", "GET"])
@@ -93,18 +106,11 @@ def my_recipes(username):
                                my_recipes=my_recipes)
 
 
-@app.route("/logout")
-def logout():
-    flash("You have been logged out")
-    session.pop("user")
-    return render_template(url_for("login"))
-
-
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
 
     if not session.get("user"):
-        return render_template(url_for("login"))
+        return redirect(url_for("login"))
 
     if request.method == "POST":
         recipe = {
@@ -165,6 +171,7 @@ def delete_recipe(recipe_id):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
     return redirect(url_for("my_recipes", username=session["user"]))
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
