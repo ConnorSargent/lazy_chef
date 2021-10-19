@@ -130,8 +130,8 @@ def add_recipe():
     if request.method == 'POST':
         recipe = {
             'name': request.form.get('name'),
-            'diets': request.form.getlist('diets'),
-            'allergens': request.form.getlist('allergens'),
+            'diets': request.form.get('diets'),
+            'allergens': request.form.get('allergens'),
             'serves': request.form.get('serves'),
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
@@ -158,14 +158,14 @@ def edit_recipe(recipe_id):
     if request.method == 'POST':
         submit = {
             'name': request.form.get('name'),
-            'diets': request.form.getlist('diets'),
-            'allergens': request.form.getlist('allergens'),
+            'diets': request.form.get('diets'),
+            'allergens': request.form.get('allergens'),
             'serves': request.form.get('serves'),
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
             'description': request.form.get('description'),
-            'ingredients': request.form.get('ingredients'),
-            'steps': request.form.get('steps'),
+            'ingredients': request.form.get('ingredients').split(">"),
+            'steps': request.form.get('steps').split(">"),
             'img_url': request.form.get('img_url'),
             'created_by': session['user'],
             'date_created': datetime.now(),

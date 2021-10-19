@@ -4,7 +4,6 @@ $(".sidenav").sidenav({
 });
 $('.tooltipped').tooltip();
 $('select').formSelect();
-$('.modal').modal();
 
 validateMaterializeSelect();
 
