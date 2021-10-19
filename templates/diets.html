@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="center-align">Manage Diets</h3>
+    <h3 class="center-align">Diets</h3>
 
     <div class="row">
         <div class="col s12 center-align">
-            <a href="{{ url_for('add_diet') }}" class="btn-large light-blue darken-2 text-shadow">
+            <a href="{{ url_for('add_diet') }}" class="btn-large blue">
                 Add Diet <i class="fas fa-plus-square right"></i>
             </a>
         </div>
@@ -16,7 +16,7 @@
             <div class="col s12 m4">
                 <div class="card grey center-align">
                     <div class="card-content">
-                        <h4 class="">{{ diets.diet_name }}</h4>
+                        <span class="card-title">{{ diet.diet_name }}</span>
                     </div>
                     <div class="card-action">
                         <a href="#" class="btn green">Edit</a>
