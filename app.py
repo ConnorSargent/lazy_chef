@@ -226,12 +226,19 @@ def edit_diet(diet_id):
         submit = {
             "diet_name": request.form.get("diet_name")
         }
-        mongo.db.categories.update({"_id": ObjectId(diet_id)}, submit)
+        mongo.db.diets.update({"_id": ObjectId(diet_id)}, submit)
         flash("Diet Successfully Updated")
         return redirect(url_for("get_diets"))
 
-    diet_id = mongo.db.categories.find_one({"_id": ObjectId(diet_id)})
+    diet_id = mongo.db.diets.find_one({"_id": ObjectId(diet_id)})
     return render_template("edit_diet.html", diet_id=diet_id)
+
+
+@app.route("/delete_diet/<diet_id>")
+def delete_diet(diet_id):
+    mongo.db.diets.remove({"_id": ObjectId(diet_id)})
+    flash("diet Successfully Deleted")
+    return redirect(url_for("get_diets"))
 
 
 if __name__ == '__main__':
