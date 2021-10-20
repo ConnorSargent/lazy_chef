@@ -1,79 +1,79 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <h3 class="center-align">{{ recipe.name }}</h3>
 
-<div class="card-panel">
+<div class="row">
 
-    <div class="row">
-        <div class="col s12 m6">
-            <p>{{ recipe.diets }}</p>
-        </div>
-        <div class="col s12 m6">
-            </p>Serves: {{ recipe.serves }}
-        </div>
-    </div>
+    <div class="col s12 card-panel grey lighten-4">
 
-    <div class="row">
-        <div class="col s12 m6">
-            <p>Preparation Time: {{ recipe.prep_time }} Minutes</p>
+        <div class="row">
+            <div class="col s12 m6">
+                <p>{{ recipe.diets }}</p>
+            </div>
+            <div class="col s12 m6">
+                </p>Serves: {{ recipe.serves }}
+            </div>
         </div>
-        <div class="col s12 m6">
-            <p>Cooking Time: {{ recipe.cook_time }} Minutes</p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col s12">
-            <p>{{ recipe.description }}</p>
+        <div class="row">
+            <div class="col s12 m6">
+                <p>Preparation Time: {{ recipe.prep_time }} Minutes</p>
+            </div>
+            <div class="col s12 m6">
+                <p>Cooking Time: {{ recipe.cook_time }} Minutes</p>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col s12">
-            <img class="responsive-img" src="{{ recipe.img_url }}" alt="Recipe Image">
-        </div>
-    </div>
+        <div class="row">
+            <div class="col s12 m6">
+                <p>{{ recipe.description }}</p>
+            </div>
+            <div class="col s12 m6">
+                <img class="responsive-img" src="{{ recipe.img_url }}" alt="Recipe Image">
+            </div>
 
-    <div class="row">
-        <div class="col s12 m6">
-            <p>Ingredients:</p>
-            <ul>
-                {% for ingredient in recipe.ingredients %}
-                <li>{{ ingredient }}</li>
-                {% endfor %}
-            </ul>
         </div>
-        <div class="col s12 m6">
-            <p>Allergens:</p>
-            <p>
-                {% for allergen in recipe.allergens %}
-                <li>{{ allergen }}</li>
-                {% endfor %}
-            </p>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col s12">
-            <p>Steps:</p>
-            <ul>
-                {% for step in recipe.steps %}
-                <li>{{ step }}</li>
-                {% endfor %}
-            </ul>
+        <div class="row">
+            <div class="col s12 m6">
+                <p>Ingredients:</p>
+                <ul>
+                    {% for ingredient in recipe.ingredients %}
+                    <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col s12 m6">
+                <p>Allergens:</p>
+                <p>
+                    {% for allergen in recipe.allergens %}
+                    <li>{{ allergen }}</li>
+                    {% endfor %}
+                </p>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col s12 m6">
-            <p>Created by:<br>
-                {{ recipe.created_by }}</p>
+        <div class="row">
+            <div class="col s12">
+                <p>Steps:</p>
+                <ul>
+                    {% for step in recipe.steps %}
+                    <li>{{ step }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-        <div class="col s12 m6">
-            <p>Date created:<br>
-                {{ recipe.date_created.strftime('%Y-%m-%d')  }}</p>
+
+        <div class="row">
+            <div class="col s12 m6">
+                <p>Created by:<br>
+                    {{ recipe.created_by }}</p>
+            </div>
+            <div class="col s12 m6">
+                <p>Date created:<br>
+                    {{ recipe.date_created.strftime('%Y-%m-%d')  }}</p>
+            </div>
         </div>
     </div>
 </div>
