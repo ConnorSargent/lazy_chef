@@ -55,8 +55,9 @@ def register():
             return redirect(url_for('register'))
 
         register = {'username': request.form.get('username').lower(),
-                    'password': generate_password_hash(request.form.get('password'
-                    )), 'email': request.form.get('email').lower()}
+                    'password': generate_password_hash
+                    (request.form.get('password')),
+                    'email': request.form.get('email').lower()}
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
@@ -114,9 +115,12 @@ def logout():
     session.pop('user')
     return redirect(url_for('login'))
 
+# _____Recipes_____
 
 @app.route('/my_recipes/<username>', methods=['POST', 'GET'])
 def my_recipes(username):
+
+    # finds all users recipes
 
     if session.get('user'):
         username = session.get('user')
@@ -129,6 +133,8 @@ def my_recipes(username):
 
 @app.route('/add_recipe', methods=['GET', 'POST'])
 def add_recipe():
+
+    # redirects user if not logged in
 
     if not session.get('user'):
         return redirect(url_for('login'))
@@ -201,6 +207,8 @@ def view_recipe(recipe_id):
     return render_template("view_recipe.html", recipe=recipe)
 
 
+# _____Diets_____
+
 @app.route("/get_diets")
 def get_diets():
     diets = list(mongo.db.diets.find().sort("diet_name", 1))
@@ -240,6 +248,7 @@ def delete_diet(diet_id):
     flash("Diet Successfully Deleted")
     return redirect(url_for("get_diets"))
 
+# _____Error pages_____
 
 @app.errorhandler(400)
 def page_not_found(e):
