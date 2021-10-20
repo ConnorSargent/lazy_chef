@@ -248,11 +248,14 @@ def delete_diet(diet_id):
     return redirect(url_for("get_diets"))
 
 
+@app.errorhandler(400)
+def page_not_found(e):
+    return render_template('400.html'), 400
+
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
-
 
 
 if __name__ == '__main__':
