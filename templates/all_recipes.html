@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h2>Recipes</h2>
+<h2 class="center-align">All Recipes</h2>
 
 
 <!-- Search -->
-<div class="row card-panel">
+<div class="row s12 m10 card-panel center-align">
   <form action="{{ url_for('search') }}" method="post" class="col s12">
     <div class="row valign-wrapper center-align">
       <div class="input-field col s12 m8">
@@ -14,8 +15,8 @@
         <label for="query">Search Recipes</label>
       </div>
       <div class="col s12 m4">
-        <a href="{{ url_for('get_recipes') }}" class="green btn">Reset</a>
-        <button type="submit" class="blue btn">
+        <a href="{{ url_for('get_recipes') }}" class="btn green">Refresh</a>
+        <button type="submit" class="btn blue">
           <i class="fas fa-search left"></i> Search
         </button>
       </div>
@@ -28,16 +29,27 @@
 <div class="row center">
   {% for recipe in recipes %}
   <div class="col s12 m4">
-    <div class="card medium">
+    <div class="card grey lighten-4">
       <div class="card-image">
         <img src="{{recipe.img_url}}">
-        <span class="card-title">{{recipe.name}}</span>
+        <h6 class="card-title">{{recipe.name}}</h6>
       </div>
       <div class="card-content">
+        <div class="row">
+          <p><strong></strong>{{recipe.diets}}</strong></p>
+        </div>
+        <div class="row">
         <p>{{recipe.description}}</p>
+      </div>
+      <div class="row left-align">
+        <p>Created by: {{recipe.created_by}} {{recipe.date_created.strftime('%Y-%m-%d')}}</P>
+      </div>
       </div>
       <div class="card-action">
         <a href="{{ url_for('view_recipe', recipe_id = recipe._id) }}" class="btn-small blue">View</a>
+        {% if session.user|lower == "admin" %}
+        <a href="{{ url_for('delete_recipe', recipe_id = recipe._id) }}" class="btn-small red">Delete</a>
+        {% endif %}
       </div>
     </div>
   </div>

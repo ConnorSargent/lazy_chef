@@ -8,19 +8,23 @@
 <div class="row center">
     {% for recipe in my_recipes %}
     <div class="col s12 m4">
-      <div class="card medium">
+      <div class="card grey lighten-4">
         <div class="card-image">
           <img src="{{recipe.img_url}}">
-          <span class="card-title">{{recipe.name}}</span>
+          <h6 class="card-title">{{recipe.name}}</h6>
         </div>
         <div class="card-content">
+          <div class="row">
+            <p><strong></strong>{{recipe.diets}}</strong></p>
+          </div>
+          <div class="row">
           <p>{{recipe.description}}</p>
+        </div>
         </div>
         <div class="card-action">
           <a href="{{ url_for('view_recipe', recipe_id = recipe._id) }}" class="btn-small blue">View</a>
           <a href="{{ url_for('edit_recipe', recipe_id = recipe._id) }}" class="btn-small green">Edit</a>
           <a href="{{ url_for('delete_recipe', recipe_id = recipe._id) }}" class="btn-small red">Delete</a>
-  
         </div>
       </div>
     </div>
