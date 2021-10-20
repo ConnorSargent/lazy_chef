@@ -238,8 +238,8 @@ def edit_diet(diet_id):
         flash("Diet Successfully Updated")
         return redirect(url_for("get_diets"))
 
-    diet_id = mongo.db.diets.find_one({"_id": ObjectId(diet_id)})
-    return render_template("edit_diet.html", diet_id=diet_id)
+    diet = mongo.db.diets.find_one({"_id": ObjectId(diet_id)})
+    return render_template("edit_diet.html", diet=diet)
 
 
 @app.route("/delete_diet/<diet_id>")
