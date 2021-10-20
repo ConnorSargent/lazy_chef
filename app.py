@@ -22,14 +22,14 @@ mongo = PyMongo(app)
 @app.route("/get_recipes")
 def get_recipes():
     recipes = list(mongo.db.recipes.find())
-    return render_template("all_recipes.html", recipes=recipes)
+    return render_template("get_recipes.html", recipes=recipes)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
     recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("all_recipes.html", recipes=recipes)
+    return render_template("get_recipes.html", recipes=recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
