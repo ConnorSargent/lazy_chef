@@ -27,4 +27,14 @@
     {% endfor %}
   </div>
 
+  {% if not my_recipes %}
+  <p class="center-align">
+      It looks like you don't have any recipes yet!
+      <br>
+      <a href="{{ url_for('add_recipe')}}" class="btn blue">
+        Add Recipe
+      </a>
+  </p>
+  {% endif%}
+
 {% endblock %}

@@ -190,16 +190,9 @@ def edit_recipe(recipe_id):
 
 @app.route('/delete_recipe/<recipe_id>')
 def delete_recipe(recipe_id):
-    recipe_owner = ("recipe.created_by")
-    if (session["user"].lower() == recipe_owner.lower()
-            or session["user"] == "admin"):
-        mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
-        flash('Recipe Successfully Deleted')
-        return redirect(url_for('my_recipes', username=session['user']))
-
-    else:
-        flash('You Must Be The Recipe Owner Perform This Action')
-        return redirect(url_for('get_recipes'))
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    flash('Recipe Successfully Deleted')
+    return redirect(url_for('my_recipes', username=session['user']))
 
 
 @app.route("/view_recipe/<recipe_id>", methods=['POST', 'GET'])
