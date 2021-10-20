@@ -4,26 +4,20 @@ h3,
 h4,
 h5,
 h6,
-.brand-logo,
-.btn,
-.btn-small,
-.btn-medium,
-.btn-large {
+.brand-logo{
     font-family: 'Permanent Marker', cursive;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
 }
-
 body,
 .btn,
 .btn-small,
 .btn-medium,
 .btn-large {
-    font-size: 1vw;
+    font-size: 1rem;
 }
-
 .card-title{
     background-color: black;
 }
