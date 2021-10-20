@@ -157,19 +157,19 @@ def edit_recipe(recipe_id):
     if request.method == 'POST':
 
         submit = {
-            'name': request.form.get('name'),
-            'diets': request.form.get('diet_name'),
-            'allergens': request.form.getlist('allergen_name'),
-            'serves': request.form.get('serves'),
-            'prep_time': request.form.get('prep_time'),
-            'cook_time': request.form.get('cook_time'),
-            'description': request.form.get('description'),
-            'ingredients': request.form.get('ingredients').split(">"),
-            'steps': request.form.get('steps').split(">"),
-            'img_url': request.form.get('img_url'),
-            'created_by': session['user'],
-            'date_created': datetime.now(),
-            }
+                'name': request.form.get('name'),
+                'diets': request.form.get('diet_name'),
+                'allergens': request.form.getlist('allergen_name'),
+                'serves': request.form.get('serves'),
+                'prep_time': request.form.get('prep_time'),
+                'cook_time': request.form.get('cook_time'),
+                'description': request.form.get('description'),
+                'ingredients': request.form.get('ingredients').split(">"),
+                'steps': request.form.get('steps').split(">"),
+                'img_url': request.form.get('img_url'),
+                'created_by': session['user'],
+                'date_created': datetime.now(),
+                    }
         mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, submit)
         flash('Recipe updated!')
         return redirect(url_for('my_recipes', username=session['user']))
@@ -192,7 +192,7 @@ def delete_recipe(recipe_id):
 
     else:
         flash('You Must Be The Recipe Owner Perform This Action')
-        return redirect(url_for('my_recipes', username=session['user']))
+        return redirect(url_for('get_recipes'))
 
 
 @app.route("/view_recipe/<recipe_id>", methods=['POST', 'GET'])
@@ -218,6 +218,20 @@ def add_diet():
         return redirect(url_for("get_diets"))
 
     return render_template("add_diet.html")
+
+
+@app.route("/edit_diet/<diet_id>", methods=["GET", "POST"])
+def edit_diet(diet_id):
+    if request.method == "POST":
+        submit = {
+            "diet_name": request.form.get("diet_name")
+        }
+        mongo.db.categories.update({"_id": ObjectId(diet_id)}, submit)
+        flash("Diet Successfully Updated")
+        return redirect(url_for("get_diets"))
+
+    diet_id = mongo.db.categories.find_one({"_id": ObjectId(diet_id)})
+    return render_template("edit_diet.html", diet_id=diet_id)
 
 
 if __name__ == '__main__':
