@@ -6,7 +6,9 @@ h5,
 h6,
 .brand-logo,
 .btn,
-.btn-small {
+.btn-small
+.btn-medium,
+.btn-large {
     font-family: 'Permanent Marker', cursive;
 }
 

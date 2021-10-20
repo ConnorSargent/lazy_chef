@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col s12 center-align">
-            <a href="{{ url_for('add_diet') }}" class="btn-large blue">
+            <a href="{{ url_for('add_diet') }}" class="btn-large green">
                 Add Diet <i class="fas fa-plus-square right"></i>
             </a>
         </div>
@@ -14,9 +14,9 @@
     <div class="row">
         {% for diet in diets %}
             <div class="col s12 m4">
-                <div class="card grey center-align">
+                <div class="card grey lighten-4 center-align">
                     <div class="card-content">
-                        <span class="card-title">{{ diet.diet_name }}</span>
+                        <h3>{{ diet.diet_name }}</h3>
                     </div>
                     <div class="card-action">
                         <a href="{{ url_for('edit_diet', diet_id=diet._id) }}" class="btn green">Edit</a>
