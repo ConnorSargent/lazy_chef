@@ -26,11 +26,11 @@ def get_recipes():
     return render_template('all_recipes.html', recipes=recipes)
 
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    query = request.form.get("query")
-    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("all_recipes.html", recipes=recipes)
+    query = request.form.get('query')
+    recipes = list(mongo.db.recipes.find({'$text': {'$search': query}}))
+    return render_template('all_recipes.html', recipes=recipes)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -55,9 +55,8 @@ def register():
             return redirect(url_for('register'))
 
         register = {'username': request.form.get('username').lower(),
-                    'password': generate_password_hash
-                    (request.form.get('password')),
-                    'email': request.form.get('email').lower()}
+                    'password': generate_password_hash(request.form.get('password'
+                    )), 'email': request.form.get('email').lower()}
         mongo.db.users.insert_one(register)
 
         # put the new user into 'session' cookie
@@ -115,6 +114,7 @@ def logout():
     session.pop('user')
     return redirect(url_for('login'))
 
+
 # _____Recipes_____
 
 @app.route('/my_recipes/<username>', methods=['POST', 'GET'])
@@ -124,7 +124,8 @@ def my_recipes(username):
 
     if session.get('user'):
         username = session.get('user')
-        my_recipes = list(mongo.db.recipes.find({'created_by': username}))
+        my_recipes = \
+            list(mongo.db.recipes.find({'created_by': username}))
 
         return render_template('my_recipes.html',
                                username=session['user'],
@@ -148,8 +149,8 @@ def add_recipe():
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
             'description': request.form.get('description'),
-            'ingredients': request.form.get('ingredients').split(">"),
-            'steps': request.form.get('steps').split(">"),
+            'ingredients': request.form.get('ingredients').split('>'),
+            'steps': request.form.get('steps').split('>'),
             'img_url': request.form.get('img_url'),
             'created_by': session['user'],
             'date_created': datetime.now(),
@@ -170,19 +171,19 @@ def edit_recipe(recipe_id):
     if request.method == 'POST':
 
         submit = {
-                'name': request.form.get('name'),
-                'diets': request.form.get('diet_name'),
-                'allergens': request.form.getlist('allergen_name'),
-                'serves': request.form.get('serves'),
-                'prep_time': request.form.get('prep_time'),
-                'cook_time': request.form.get('cook_time'),
-                'description': request.form.get('description'),
-                'ingredients': request.form.get('ingredients').split(">"),
-                'steps': request.form.get('steps').split(">"),
-                'img_url': request.form.get('img_url'),
-                'created_by': session['user'],
-                'date_created': datetime.now(),
-                    }
+            'name': request.form.get('name'),
+            'diets': request.form.get('diet_name'),
+            'allergens': request.form.getlist('allergen_name'),
+            'serves': request.form.get('serves'),
+            'prep_time': request.form.get('prep_time'),
+            'cook_time': request.form.get('cook_time'),
+            'description': request.form.get('description'),
+            'ingredients': request.form.get('ingredients').split('>'),
+            'steps': request.form.get('steps').split('>'),
+            'img_url': request.form.get('img_url'),
+            'created_by': session['user'],
+            'date_created': datetime.now(),
+            }
         mongo.db.recipes.update({'_id': ObjectId(recipe_id)}, submit)
         flash('Recipe updated!')
         return redirect(url_for('my_recipes', username=session['user']))
@@ -201,69 +202,65 @@ def delete_recipe(recipe_id):
     return redirect(url_for('my_recipes', username=session['user']))
 
 
-@app.route("/view_recipe/<recipe_id>", methods=['POST', 'GET'])
+@app.route('/view_recipe/<recipe_id>', methods=['POST', 'GET'])
 def view_recipe(recipe_id):
     recipe = mongo.db.recipes.find_one({'_id': ObjectId(recipe_id)})
-    return render_template("view_recipe.html", recipe=recipe)
+    return render_template('view_recipe.html', recipe=recipe)
 
 
 # _____Diets_____
 
-@app.route("/get_diets")
+@app.route('/get_diets')
 def get_diets():
-    diets = list(mongo.db.diets.find().sort("diet_name", 1))
-    return render_template("diets.html", diets=diets)
+    diets = list(mongo.db.diets.find().sort('diet_name', 1))
+    return render_template('diets.html', diets=diets)
 
 
-@app.route("/add_diet", methods=["GET", "POST"])
+@app.route('/add_diet', methods=['GET', 'POST'])
 def add_diet():
-    if request.method == "POST":
-        diet = {
-            "diet_name": request.form.get("diet_name")
-        }
+    if request.method == 'POST':
+        diet = {'diet_name': request.form.get('diet_name')}
         mongo.db.diets.insert_one(diet)
-        flash("New diet Added")
-        return redirect(url_for("get_diets"))
+        flash('New diet Added')
+        return redirect(url_for('get_diets'))
 
-    return render_template("add_diet.html")
+    return render_template('add_diet.html')
 
 
-@app.route("/edit_diet/<diet_id>", methods=["GET", "POST"])
+@app.route('/edit_diet/<diet_id>', methods=['GET', 'POST'])
 def edit_diet(diet_id):
-    if request.method == "POST":
-        submit = {
-            "diet_name": request.form.get("diet_name")
-        }
-        mongo.db.diets.update({"_id": ObjectId(diet_id)}, submit)
-        flash("Diet Successfully Updated")
-        return redirect(url_for("get_diets"))
+    if request.method == 'POST':
+        submit = {'diet_name': request.form.get('diet_name')}
+        mongo.db.diets.update({'_id': ObjectId(diet_id)}, submit)
+        flash('Diet Successfully Updated')
+        return redirect(url_for('get_diets'))
 
-    diet = mongo.db.diets.find_one({"_id": ObjectId(diet_id)})
-    return render_template("edit_diet.html", diet=diet)
+    diet = mongo.db.diets.find_one({'_id': ObjectId(diet_id)})
+    return render_template('edit_diet.html', diet=diet)
 
 
-@app.route("/delete_diet/<diet_id>")
+@app.route('/delete_diet/<diet_id>')
 def delete_diet(diet_id):
-    mongo.db.diets.remove({"_id": ObjectId(diet_id)})
-    flash("Diet Successfully Deleted")
-    return redirect(url_for("get_diets"))
+    mongo.db.diets.remove({'_id': ObjectId(diet_id)})
+    flash('Diet Successfully Deleted')
+    return redirect(url_for('get_diets'))
+
 
 # _____Error pages_____
 
 @app.errorhandler(400)
 def page_not_found(e):
-    return render_template('400.html'), 400
+    return (render_template('400.html'), 400)
 
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return (render_template('404.html'), 404)
 
 
 @app.errorhandler(500)
 def page_not_found(e):
-    return render_template('500.html'), 500
-
+    return (render_template('500.html'), 500)
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT'
