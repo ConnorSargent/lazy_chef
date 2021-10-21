@@ -28,15 +28,15 @@
 {% if recipes|length > 0 %}
 <div class="row center">
   {% for recipe in recipes %}
-  <div class="col s12 m3">
-    <div class="card large grey lighten-4">
+  <div class="col s12 m4">
+    <div class="card grey lighten-4">
       <div class="card-image">
-        <img src="{{recipe.img_url}}">
+        <img src="{{recipe.img_url}}" alt="Recipe Image">
         <h6 class="card-title">{{recipe.name}}</h6>
       </div>
       <div class="card-content">
         <div class="row">
-          <p><strong></strong>{{recipe.diets}}</strong></p>
+          <p>{{recipe.diets}}</p>
         </div>
         <div class="row">
         <p>{{recipe.description}}</p>

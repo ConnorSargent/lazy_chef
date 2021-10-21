@@ -36,7 +36,7 @@ def search():
 def register():
     if request.method == "POST":
 
-        # check if username already exists in db
+        # check if username/email already exists in db
 
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()}
@@ -165,7 +165,7 @@ def add_recipe():
     allergens = mongo.db.allergens.find().sort("allergen_name", 1)
     return render_template("add_recipe.html", allergens=allergens, diets=diets)
 
-
+#add security
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
@@ -196,21 +196,22 @@ def edit_recipe(recipe_id):
     )
 
 
+# Add security
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    if (session["user"].lower() != "admin" or
-            session["user"].lower() != recipe.created_by):
+    if (session["user"].lower() == "admin" or
+            session["user"].lower() == recipe.created_by):
 
-        flash("You Must Be The Recipe Creator Or Admin To Delete")
-        return redirect(url_for("my_recipes", username=session["user"]))
-
-    else:
         mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
         flash("Recipe Successfully Deleted")
         return redirect(url_for("my_recipes", username=session["user"]))
 
+    else:
+        flash("You Must Be The Recipe Creator Or Admin To Delete")
+        return redirect(url_for("my_recipes", username=session["user"]))
+   
 
 @app.route("/view_recipe/<recipe_id>", methods=["POST", "GET"])
 def view_recipe(recipe_id):
@@ -252,10 +253,9 @@ def edit_diet(diet_id):
 
 @app.route("/delete_diet/<diet_id>")
 def delete_diet(diet_id):
-
-        mongo.db.diets.remove({"_id": ObjectId(diet_id)})
-        flash("Diet Successfully Deleted")
-        return redirect(url_for("get_diets"))
+    mongo.db.diets.remove({"_id": ObjectId(diet_id)})
+    flash("Diet Successfully Deleted")
+    return redirect(url_for("get_diets"))
 
 
 # _____Error pages_____

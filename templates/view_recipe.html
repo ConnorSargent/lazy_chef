@@ -12,7 +12,7 @@
                 <p>{{ recipe.diets }}</p>
             </div>
             <div class="col s12 m6">
-                </p>Serves: {{ recipe.serves }}
+                <p>Serves: {{ recipe.serves }}</p>
             </div>
         </div>
 
@@ -47,9 +47,11 @@
             <div class="col s12 m6">
                 <p>Allergens:</p>
                 <p>
-                    {% for allergen in recipe.allergens %}
-                    <li>{{ allergen }}</li>
-                    {% endfor %}
+                    <ul>
+                        {% for allergen in recipe.allergens %}
+                        <li>{{ allergen }}</li>
+                        {% endfor %}
+                    </ul>
                 </p>
             </div>
         </div>
