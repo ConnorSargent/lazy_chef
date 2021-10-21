@@ -198,6 +198,15 @@ def edit_recipe(recipe_id):
 
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
+
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if (session["user"].lower() != "admin" or
+            session["user"].lower() != recipe.created_by):
+
+        flash("You Must Be The Recipe Creator Or Admin To Delete")
+        return redirect(url_for("my_recipes", username=session["user"]))
+
+    else:
         mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
         flash("Recipe Successfully Deleted")
         return redirect(url_for("my_recipes", username=session["user"]))
@@ -243,9 +252,10 @@ def edit_diet(diet_id):
 
 @app.route("/delete_diet/<diet_id>")
 def delete_diet(diet_id):
-    mongo.db.diets.remove({"_id": ObjectId(diet_id)})
-    flash("Diet Successfully Deleted")
-    return redirect(url_for("get_diets"))
+
+        mongo.db.diets.remove({"_id": ObjectId(diet_id)})
+        flash("Diet Successfully Deleted")
+        return redirect(url_for("get_diets"))
 
 
 # _____Error pages_____
