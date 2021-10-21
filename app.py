@@ -165,6 +165,7 @@ def add_recipe():
     allergens = mongo.db.allergens.find().sort("allergen_name", 1)
     return render_template("add_recipe.html", allergens=allergens, diets=diets)
 
+
 #add security
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
@@ -196,13 +197,12 @@ def edit_recipe(recipe_id):
     )
 
 
-# Add security
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     if (session["user"].lower() == "admin" or
-            session["user"].lower() == recipe.created_by):
+            session["user"].lower() == recipe["created_by"]):
 
         mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
         flash("Recipe Successfully Deleted")
@@ -211,7 +211,7 @@ def delete_recipe(recipe_id):
     else:
         flash("You Must Be The Recipe Creator Or Admin To Delete")
         return redirect(url_for("my_recipes", username=session["user"]))
-   
+
 
 @app.route("/view_recipe/<recipe_id>", methods=["POST", "GET"])
 def view_recipe(recipe_id):
