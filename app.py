@@ -166,7 +166,6 @@ def add_recipe():
     return render_template("add_recipe.html", allergens=allergens, diets=diets)
 
 
-#add security
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":

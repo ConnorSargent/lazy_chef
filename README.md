@@ -1,6 +1,6 @@
 # Lazy Chef
 
-Lazy Chef is a web app designed to save and share a users favorite recipes quickly and easily with other users. The deployed site can be viewed [here](herokuLink)
+Lazy Chef is a web app designed to save and share a users favorite recipes quickly and easily with other users. The deployed site can be viewed [here](http://lazy-chef-app.herokuapp.com/get_recipes)
 
 ![img](headerImageURL)
 
@@ -136,6 +136,24 @@ The HTML code was passed through the [W3C Markup Validation Service](https://val
 
 Any errors that remain are due to the sections of Jinja language that are not able to pass through an HTML validator.
 
+### CSS
+The CSS file was passed through the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
+
+![CSS](static/images/testing/CSS.PNG)
+
+### JavaScript
+The JavaScript file was copied into [JSLint](https://www.jslint.com/) for error checking. No errors were found.
+
+### Python
+The python code was copied into [PEP8 online](http://pep8online.com/) for error checking. The errors found were minor and related to spacing around operators and indentation surrounding continuation lines. This was subsequently corrected and re-tested:
+
+![pep8](static/images/testing/pep8.PNG)
+
+### Lighthouse
+Lighthouse was used to assess the performance of the page. This was done for both desktop and mobile versions; the reports are shown here (desktop/mobile):
+
+
+
 
 ### Objective Testing
 ### Nav
@@ -267,6 +285,54 @@ Any errors that remain are due to the sections of Jinja language that are not ab
 ### Responsiveness
 - My app was made using materializecss which ensured my web ap is responsive, All pages are displayed correctly on all screen sizes without compromising the content of the page.
 
+#### Test Users
 
+Username: admin         Password: adm1n
+Username: davepickles   Password: Password
+Username: simonlane     Password: Password
 
+## Deployment
+### Heroku
+Deployment for this project is via [Heroku](https://www.heroku.com).
+1. Create a requirements.txt file by typing pip3 freeze --local > requirements.txt in your repository terminal
+2. Create a Procfile so that Heroku knows how to run the app. Do this by typing echo web: python app.py into your repositories terminal
+3. Make sure these files have been pushed to the GitHub repository and then navigate to [Heroku](https://www.heroku.com)
+4. Log in and select 'new' in the top right, name your app and choose a region that is closest to you. The app name must be unique.
+5. On the dashboard for your app, select the 'Deploy' tab and under deployment method, select GitHub (the easiest option if your repository is in GitHub)
+6. Enter the repository name underneath that and hit search. select the repository by clicking 'Connect'
+7. You can either select Automatic or Manual deployment depending on your method. This project has been deployed with the manual method. Remember that if you choose manual, then every time the main/master branch is changed, you will need to re-deploy the app.
+8. Next, go to the 'Settings' tab and select 'Reveal Config Vars'
+9. Here you need to add several KEY: VALUE pairs for the app to run. They are
+  - I.P: 0.0.0.0
+  - PORT: 5000
+  - MONGO_DBNAME: *database name*
+  - MONGO_URI: *MongoDB URI, taken from the connections section of the database*
+  - SECRET_KEY: *secret key of your choice*
+10. Once these KEY: VALUE pairs have been added, the app will be reachable from the [Heroku](https://www.heroku.com) portal
 
+### Forking the Repository
+If you would like to view/change the code for the project then you can copy this repository to your GitHub account by forking it. You will then be able to do this without affecting the original repository:
+1. From the repository home page,  click the 'fork' button (just below your picture with the dropdown menu)
+2. You should now have a copy of the repository on your account
+
+### Making a Local Clone
+1. From the repository home page, select the 'code' tab (next to the green 'Gitpod' button)
+2. To clone the repository using HTTPS, under "Clone with HTTPS", copy the link.
+3. Open Git Bash
+4. Change the current working directory to the location where you want the cloned directory to be made.
+5. Type 'git clone', and then paste the URL you copied in Step 2.
+6. Press Enter. Your local clone will be created.
+7. Alternatively, you can use 'Open with GitHub Desktop' and follow the instructions, or just download the ZIP file containing the code files
+
+Click [Here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository#cloning-a-repository-to-github-desktop) to view the GitHub documentation on deployment, or [Here](https://devcenter.heroku.com/)for the Heroku documentation for further help and advice.
+
+## Credits
+
+### Content
+  - All code was written by myself (with one exception; see below), with inspiration taken from the Code Institute walkthrough projects
+   - Form Validation Javascript
+
+### Acknowledgements
+  - Thanks to my mentor and tutors for help!
+  - [Stack Overflow](https://stackoverflow.com/)
+  - [Code Institute](https://codeinstitute.net/)
