@@ -2,7 +2,8 @@
 
 Lazy Chef is a web app designed to save and share a users favorite recipes quickly and easily with other users. The deployed site can be viewed [here](http://lazy-chef-app.herokuapp.com/get_recipes)
 
-![img](headerImageURL)
+![Responsive](static/images/responsive.PNG)
+
 
 ## Table of Contents
 1. [UX](#ux)
@@ -12,6 +13,11 @@ Lazy Chef is a web app designed to save and share a users favorite recipes quick
 2. [Features](#features)
 3. [Technologies Used](#technologies-used)
 4. [Testing](#testing)
+4. [Testing](#testing)
+5. [Deployment](#deployment)
+6. [Credits](#credits)
+    - [Content](#content)
+    - [Acknowledgements](#acknowledgements)
 
 ## UX
 This application has been created using flask/python and MongoDB for the backend. The design is my own inspired by various other recipe applications.
@@ -59,7 +65,7 @@ Below are the wireframes used to design the app layout.
 ![wireframe for profile page](static/images/wireframes/profile_wireframe.PNG)
 
 #### Add Recipe
-![wireframe for add recipe page](static\images\wireframes\add_recipe_wireframe.PNG)
+![wireframe for add recipe page](static/images/wireframes/add_recipe_wireframe.PNG)
 
 #### Recipe
 ![wireframe for recipe display](static/images/wireframes/recipe_wireframe.PNG)
@@ -148,12 +154,6 @@ The JavaScript file was copied into [JSLint](https://www.jslint.com/) for error 
 The python code was copied into [PEP8 online](http://pep8online.com/) for error checking. The errors found were minor and related to spacing around operators and indentation surrounding continuation lines. This was subsequently corrected and re-tested:
 
 ![pep8](static/images/testing/pep8.PNG)
-
-### Lighthouse
-Lighthouse was used to assess the performance of the page. This was done for both desktop and mobile versions; the reports are shown here (desktop/mobile):
-
-
-
 
 ### Objective Testing
 ### Nav
