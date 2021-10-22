@@ -13,7 +13,6 @@ Lazy Chef is a web app designed to save and share a users favorite recipes quick
 2. [Features](#features)
 3. [Technologies Used](#technologies-used)
 4. [Testing](#testing)
-4. [Testing](#testing)
 5. [Deployment](#deployment)
 6. [Credits](#credits)
     - [Content](#content)
