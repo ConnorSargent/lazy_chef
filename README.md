@@ -233,6 +233,7 @@ The python code was copied into [PEP8 online](http://pep8online.com/) for error 
 - View recipe button redirects user to view recipes template.
 - Edit recipe button redirects user to view recipes template.
 - Delete recipe button deletes recipe. (flash message "Recipe Successfully Deleted").
+  - Delete recipe can only be accessed by either the recipe created by or "admin"
 
 ### New Recipes
 - If a user is not logged in user is redirected to log in template.
