@@ -287,9 +287,9 @@ The python code was copied into [PEP8 online](http://pep8online.com/) for error 
 
 #### Test Users
 
-Username: admin         Password: adm1n
-Username: davepickles   Password: Password
-Username: simonlane     Password: Password
+ - Username: admin         Password: adm1n
+ - Username: davepickles   Password: Password
+ - Username: simonlane     Password: Password
 
 ## Deployment
 ### Heroku
