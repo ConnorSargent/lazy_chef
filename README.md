@@ -331,6 +331,8 @@ Click [Here](https://docs.github.com/en/github/creating-cloning-and-archiving-re
 ### Content
   - All code was written by myself (with one exception; see below), with inspiration taken from the Code Institute walkthrough projects
    - Form Validation Javascript
+  - Recipes and images taken from [bbc goodfood](https://www.bbcgoodfood.com/)
+  - Generic recipe image taken from [pexels](https://images.pexels.com/photos/6419720/pexels-photo-6419720.jpeg)
 
 ### Acknowledgements
   - Thanks to my mentor and tutors for help!
